@@ -1,0 +1,75 @@
+classDiagram
+    class MarketPlace {
+        +String name
+        +void browseAnnouncements()
+        +void createAnnouncement()
+    }
+
+    class Announcement {
+        +String title
+        +String category
+        +String type
+        +String description
+        +double price
+        +String city
+        +Date postedDate
+        +double rating
+        +Video shortVideo
+        +List~Comment~ comments
+        +List~Notification~ notifications
+        +void share()
+        +void rate(int stars)
+    }
+
+    class User {
+        +String username
+        +String email
+        +String password
+        +void register()
+        +void login()
+        +void sendMessage(User recipient, String message)
+    }
+
+    class Video {
+        +int duration
+        +void play()
+    }
+
+    class Comment {
+        +String content
+        +Date datePosted
+        +User author
+    }
+
+    class Notification {
+        +String message
+        +Date date
+        +boolean isRead
+        +void markAsRead()
+    }
+
+    class Chat {
+        +List~Message~ messages
+        +void sendMessage(User sender, User receiver, String content)
+    }
+
+    class Message {
+        +String content
+        +Date timestamp
+        +User sender
+        +User receiver
+    }
+
+    MarketPlace "1" -- "*" Announcement : contains
+    Announcement "1" -- "*" Comment : has
+    Announcement "1" -- "*" Notification : generates
+    User "1" -- "*" Announcement : creates
+    User "1" -- "*" Comment : writes
+    User "1" -- "*" Notification : receives
+    User "1" -- "*" Message : exchanges with
+    Chat "1" -- "*" Message : includes
+    Announcement "1" -- "1" Video : has
+
+    note for MarketPlace "Main application class for managing the marketplace"
+    note for Announcement "Each announcement with details, comments, and ratings"
+    note for Chat "Messaging feature for users to communicate"

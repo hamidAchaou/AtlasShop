@@ -1,0 +1,36 @@
+@startuml
+
+actor User
+actor Guest
+
+usecase "Browse Announcements" as UC_Browse
+usecase "Create Announcement" as UC_Create
+usecase "Register" as UC_Register
+usecase "Login" as UC_Login
+usecase "View Announcement Details" as UC_ViewDetails
+usecase "Rate Announcement" as UC_Rate
+usecase "Comment on Announcement" as UC_Comment
+usecase "Share Announcement" as UC_Share
+usecase "Send Message" as UC_SendMessage
+usecase "Receive Notifications" as UC_ReceiveNotifications
+
+User -> UC_Browse
+User -> UC_Create
+User -> UC_ViewDetails
+User -> UC_Rate
+User -> UC_Comment
+User -> UC_Share
+User -> UC_SendMessage
+User -> UC_ReceiveNotifications
+
+Guest -> UC_Browse
+Guest -> UC_ViewDetails
+Guest -> UC_Register
+Guest -> UC_Login
+
+UC_Create .> UC_Login : "Requires" 
+UC_Comment .> UC_Login : "Requires" 
+UC_Rate .> UC_Login : "Requires" 
+UC_SendMessage .> UC_Login : "Requires" 
+
+@enduml
