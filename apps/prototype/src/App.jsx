@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Profile from "./pages/Profile";
+import RealEstateReel from "./pages/RealEstateReel/RealEstateReel";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/real-estate" element={<RealEstateReel />} />
             </Routes>
           </div>
         </div>

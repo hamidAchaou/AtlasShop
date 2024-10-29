@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  background-color: #fafafa;
+  color: #333;
+}
+/* Sidebar */
+nav {
+  width: 250px;
+  background-color: #fff;
+  padding: 20px;
+  border-right: 1px solid #e6e6e6;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+nav img {
+  width: 120px;
+  margin-bottom: 20px;
+}
+nav ul {
+  list-style: none;
+  width: 100%;
+}
+nav ul li {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+nav ul li i {
+  margin-right: 12px;
+  font-size: 20px;
+}
+nav ul li:hover {
+  color: #0095f6;
+}
+nav ul li img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Main Reel Section */
+.reel-section {
+  margin-left: 250px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 250px);
+  height: 100vh;
+}
+.reel-container {
+  position: relative;
+  width: 400px;
+  max-width: 90%;
+  height: 90%;
+  background-color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.reel-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.reel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+/* Action Bar */
+.action-bar {
+  position: absolute;
+  right: 15px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4;
+}
+.action-bar .action-icon {
+    color: #000;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+.action-bar .action-icon span {
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+}
+
+/* User Info and Caption */
+.user-info {
+  position: absolute;
+  left: 15px;
+  bottom: 30px;
+  z-index: 3;
+  color: #fff;
+}
+.user-info h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.user-info p {
+  font-size: 14px;
+  color: #ddd;
+}
+.user-info .follow-btn {
+  font-size: 14px;
+  color: #0095f6;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+    width: 60px;
+  }
+  nav ul li span {
+    display: none;
+  }
+  .reel-section {
+    margin-left: 60px;
+  }
+}
