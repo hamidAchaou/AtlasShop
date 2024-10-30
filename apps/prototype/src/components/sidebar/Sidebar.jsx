@@ -1,68 +1,71 @@
 // src/components/Sidebar.jsx
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider,
+  IconButton,
+  useMediaQuery,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import BusinessIcon from "@mui/icons-material/Business"; // For Real Estate
-import BuildIcon from "@mui/icons-material/Build"; // For Auto Parts
+import BusinessIcon from "@mui/icons-material/Business";
+import BuildIcon from "@mui/icons-material/Build";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AddBoxIcon from "@mui/icons-material/AddBox"; // Updated Create icon
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz"; // For More
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { styled } from "@mui/material/styles";
-import { useLocation, Link } from "react-router-dom"; // Import useLocation and Link
-import ProfileImage from "../../assets/images/me.png"; // Update this path as needed
+import { useLocation, Link } from "react-router-dom";
+import ProfileImage from "../../assets/images/me.png";
 
-const SidebarContainer = styled(Box)(({ theme }) => ({
-  width: 250,
-  height: "100vh",
+const SidebarContainer = styled(Box)(({ theme, open, isMobile }) => ({
+  width: open && !isMobile ? 250 : isMobile ? "100vw" : 70,
+  height: isMobile ? "auto" : "100vh",
   backgroundColor: "#ffffff",
   boxShadow: "0 0 10px rgba(0,0,0,0.1)",
   position: "fixed",
-  top: 0,
-  left: 0,
+  top: isMobile ? "auto" : 0,
+  left: isMobile ? 0 : 0,
+  bottom: isMobile ? 0 : "auto",
   display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
+  flexDirection: isMobile ? "row" : "column",
+  justifyContent: isMobile ? "space-around" : "space-between",
+  transition: "width 0.3s ease",
+  zIndex: 1300,
 }));
 
-const SidebarHeader = styled(Box)(({ theme }) => ({
+const SidebarHeader = styled(Box)(({ theme, open, isMobile }) => ({
   padding: theme.spacing(2),
   textAlign: "center",
-  fontSize: "1.5rem",
+  fontSize: open && !isMobile ? "1.5rem" : "1rem",
   fontWeight: "bold",
   color: "#3f51b5",
 }));
 
-// Styled ListItem with hover effect
-const StyledListItem = styled(ListItem)(({ theme, active }) => ({
-  borderRadius: "8px", // Rounded corners
-  transition: "background-color 0.2s ease, transform 0.2s ease", // Smooth background transition
+const StyledListItem = styled(ListItem)(({ theme, active, isMobile }) => ({
+  borderRadius: "8px",
+  transition: "background-color 0.2s ease, transform 0.2s ease",
   backgroundColor: active ? "#e0e0e0" : "transparent",
   color: active ? "#000" : "#333",
+  justifyContent: isMobile ? "center" : "flex-start",
   "&:hover": {
-    backgroundColor: "#f0f0f0", // Light gray background on hover
-    transform: "scale(1.02)", // Slight scale effect
+    backgroundColor: "#f0f0f0",
+    transform: "scale(1.02)",
   },
 }));
 
-// Styled ListItemIcon for black color
-const StyledListItemIcon = styled(ListItemIcon)(({ theme }) => ({
-  color: "#555", // Set icon color to black
-  transition: "transform 0.2s ease", // Smooth transition for scaling
+const StyledListItemIcon = styled(ListItemIcon)({
+  color: "#555",
+  transition: "transform 0.2s ease",
   "&:hover": {
-    transform: "scale(1.1)", // Scale up icon on hover
+    transform: "scale(1.1)",
   },
-}));
+});
 
-// Updated array of menu items with corresponding routes
 const menuItems = [
   { text: "Home", icon: <HomeIcon />, path: "/" },
   { text: "Search", icon: <SearchIcon />, path: "/search" },
@@ -74,7 +77,7 @@ const menuItems = [
     icon: <NotificationsIcon />,
     path: "/notifications",
   },
-  { text: "Create", icon: <AddBoxIcon />, path: "/create" }, // Changed to AddBox icon
+  { text: "Create", icon: <AddBoxIcon />, path: "/create" },
   {
     text: "Profile",
     icon: (
@@ -88,31 +91,45 @@ const menuItems = [
       />
     ),
     path: "/profile",
-  }, // Fallback icon if the image fails to load
+  },
   { text: "More", icon: <MoreHorizIcon />, path: "/more" },
 ];
 
 const Sidebar = () => {
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
+  const [open, setOpen] = useState(true);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
-    <SidebarContainer>
-      <SidebarHeader>AtlasShop</SidebarHeader>
-      <List>
+    <SidebarContainer open={open} isMobile={isMobile}>
+      {!isMobile && <SidebarHeader open={open}>AtlasShop</SidebarHeader>}
+      <List
+        sx={{ display: "flex", flexDirection: isMobile ? "row" : "column" }}
+      >
         {menuItems.map((item, index) => (
           <Link
             to={item.path}
             key={index}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <StyledListItem button active={location.pathname === item.path}>
+            <StyledListItem
+              button
+              active={location.pathname === item.path}
+              isMobile={isMobile}
+            >
               <StyledListItemIcon>{item.icon}</StyledListItemIcon>
-              <ListItemText primary={item.text} />
+              {!isMobile && open && <ListItemText primary={item.text} />}
             </StyledListItem>
           </Link>
         ))}
       </List>
-      <Divider />
+      {isMobile && (
+        <Box sx={{ padding: 1, display: "flex", justifyContent: "center" }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <MenuIcon />
+          </IconButton>
+        </Box>
+      )}
     </SidebarContainer>
   );
 };

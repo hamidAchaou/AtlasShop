@@ -10,6 +10,148 @@ import {
   Avatar,
   Button,
 } from "@mui/material";
+import { Link } from "react-router-dom"; // Import the Link component
+
+// ... other imports remain unchanged
+
+const renderActionBar = (video) => (
+  <Box
+    sx={{
+      position: "absolute",
+      right: { xs: "15px", md: "10px" },
+      bottom: { xs: "80px", md: "auto" },
+      top: { md: "50%" },
+      transform: { md: "translateY(-50%)" },
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      zIndex: 3,
+      gap: 2,
+    }}
+  >
+    {/* Profile Section */}
+    <Box
+      sx={{
+        display: { xs: "none", md: "flex" },
+        flexDirection: "column",
+        alignItems: "center",
+        mb: 2,
+      }}
+    >
+      <Link to="/profile" style={{ textDecoration: "none" }}>
+        {" "}
+        {/* Add Link here */}
+        <Avatar
+          sx={{
+            width: 48,
+            height: 48,
+            mb: 1,
+            border: "2px solid white",
+          }}
+          src={video.userAvatar || null}
+        >
+          <PersonIcon />
+        </Avatar>
+      </Link>
+    </Box>
+
+    {/* Like Button */}
+    <Box sx={{ textAlign: "center" }}>
+      <IconButton
+        sx={{
+          bgcolor: "rgba(255,255,255,0.1)",
+          "&:hover": {
+            bgcolor: "rgba(255,255,255,0.2)",
+            transform: "scale(1.1)",
+          },
+          transition: "transform 0.2s",
+          mb: 0.5,
+        }}
+      >
+        <FavoriteIcon sx={{ color: "white" }} />
+      </IconButton>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "white",
+          display: "block",
+          textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+        }}
+      >
+        7.8K
+      </Typography>
+    </Box>
+
+    {/* Comment Button */}
+    <Box sx={{ textAlign: "center" }}>
+      <IconButton
+        sx={{
+          bgcolor: "rgba(255,255,255,0.1)",
+          "&:hover": {
+            bgcolor: "rgba(255,255,255,0.2)",
+            transform: "scale(1.1)",
+          },
+          transition: "transform 0.2s",
+          mb: 0.5,
+        }}
+      >
+        <CommentIcon sx={{ color: "white" }} />
+      </IconButton>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "white",
+          display: "block",
+          textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+        }}
+      >
+        231
+      </Typography>
+    </Box>
+
+    {/* Share Button */}
+    <Box sx={{ textAlign: "center" }}>
+      <IconButton
+        sx={{
+          bgcolor: "rgba(255,255,255,0.1)",
+          "&:hover": {
+            bgcolor: "rgba(255,255,255,0.2)",
+            transform: "scale(1.1)",
+          },
+          transition: "transform 0.2s",
+          mb: 0.5,
+        }}
+      >
+        <ShareIcon sx={{ color: "white" }} />
+      </IconButton>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "white",
+          display: "block",
+          textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+        }}
+      >
+        Share
+      </Typography>
+    </Box>
+
+    {/* More Options Button */}
+    <IconButton
+      sx={{
+        bgcolor: "rgba(255,255,255,0.1)",
+        "&:hover": {
+          bgcolor: "rgba(255,255,255,0.2)",
+          transform: "scale(1.1)",
+        },
+        transition: "transform 0.2s",
+      }}
+    >
+      <MoreHorizIcon sx={{ color: "white" }} />
+    </IconButton>
+  </Box>
+);
+
 import {
   KeyboardArrowUp,
   KeyboardArrowDown,
@@ -189,33 +331,21 @@ const ReelSection = () => {
           mb: 2,
         }}
       >
-        <Avatar
-          sx={{
-            width: 48,
-            height: 48,
-            mb: 1,
-            border: "2px solid white",
-          }}
-          src={video.userAvatar || null}
-        >
-          <PersonIcon />
-        </Avatar>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            bgcolor: "primary.main",
-            color: "white",
-            "&:hover": {
-              bgcolor: "primary.dark",
-            },
-            minWidth: "32px",
-            height: "32px",
-            borderRadius: "16px",
-          }}
-        >
-          +
-        </Button>
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+          {" "}
+          {/* Add Link here */}
+          <Avatar
+            sx={{
+              width: 48,
+              height: 48,
+              mb: 1,
+              border: "2px solid white",
+            }}
+            src={video.userAvatar || null}
+          >
+            <PersonIcon />
+          </Avatar>
+        </Link>
       </Box>
 
       {/* Like Button */}

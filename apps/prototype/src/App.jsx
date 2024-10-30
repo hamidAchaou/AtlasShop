@@ -1,7 +1,7 @@
-// src/App.js
+// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, useMediaQuery, Box } from "@mui/material";
 import theme from "./styles/theme";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./pages/Home";
@@ -11,12 +11,21 @@ import Profile from "./pages/Profile";
 import RealEstateReel from "./pages/RealEstateReel/RealEstateReel";
 
 const App = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <div style={{ display: "flex" }}>
+        <Box display="flex" flexDirection={isMobile ? "column" : "row"}>
           <Sidebar />
-          <div style={{ flex: 1, paddingLeft: "240px" }}>
+          <Box
+            component="main"
+            sx={{
+              flex: 1,
+              paddingLeft: isMobile ? 0 : "250px", // Sidebar width on desktop
+              paddingBottom: isMobile ? "60px" : 0, // Sidebar height on mobile
+            }}
+          >
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<Signup />} />
@@ -24,8 +33,8 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/real-estate" element={<RealEstateReel />} />
             </Routes>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </Router>
     </ThemeProvider>
   );
