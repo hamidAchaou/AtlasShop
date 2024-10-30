@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
-  Container,
   IconButton,
   Typography,
   Card,
   CardContent,
   Chip,
   Stack,
+  Avatar,
+  Button,
 } from "@mui/material";
 import {
   KeyboardArrowUp,
@@ -17,6 +18,11 @@ import {
   Info,
   LocationOn,
   AttachMoney,
+  Favorite as FavoriteIcon,
+  ChatBubble as CommentIcon,
+  Share as ShareIcon,
+  MoreHoriz as MoreHorizIcon,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import videosData from "../../data/videos";
 
@@ -25,7 +31,6 @@ const ReelSection = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
   const videoRefs = useRef({});
-  const containerRef = useRef(null);
 
   const handleVideoIntersection = (entries) => {
     entries.forEach((entry) => {
@@ -160,16 +165,165 @@ const ReelSection = () => {
     }
   };
 
+  const renderActionBar = (video) => (
+    <Box
+      sx={{
+        position: "absolute",
+        right: { xs: "15px", md: "10px" },
+        bottom: { xs: "80px", md: "auto" },
+        top: { md: "50%" },
+        transform: { md: "translateY(-50%)" },
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        zIndex: 3,
+        gap: 2,
+      }}
+    >
+      {/* Profile Section */}
+      <Box
+        sx={{
+          display: { xs: "none", md: "flex" },
+          flexDirection: "column",
+          alignItems: "center",
+          mb: 2,
+        }}
+      >
+        <Avatar
+          sx={{
+            width: 48,
+            height: 48,
+            mb: 1,
+            border: "2px solid white",
+          }}
+          src={video.userAvatar || null}
+        >
+          <PersonIcon />
+        </Avatar>
+        <Button
+          variant="contained"
+          size="small"
+          sx={{
+            bgcolor: "primary.main",
+            color: "white",
+            "&:hover": {
+              bgcolor: "primary.dark",
+            },
+            minWidth: "32px",
+            height: "32px",
+            borderRadius: "16px",
+          }}
+        >
+          +
+        </Button>
+      </Box>
+
+      {/* Like Button */}
+      <Box sx={{ textAlign: "center" }}>
+        <IconButton
+          sx={{
+            bgcolor: "rgba(255,255,255,0.1)",
+            "&:hover": {
+              bgcolor: "rgba(255,255,255,0.2)",
+              transform: "scale(1.1)",
+            },
+            transition: "transform 0.2s",
+            mb: 0.5,
+          }}
+        >
+          <FavoriteIcon sx={{ color: "white" }} />
+        </IconButton>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "white",
+            display: "block",
+            textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+          }}
+        >
+          7.8K
+        </Typography>
+      </Box>
+
+      {/* Comment Button */}
+      <Box sx={{ textAlign: "center" }}>
+        <IconButton
+          sx={{
+            bgcolor: "rgba(255,255,255,0.1)",
+            "&:hover": {
+              bgcolor: "rgba(255,255,255,0.2)",
+              transform: "scale(1.1)",
+            },
+            transition: "transform 0.2s",
+            mb: 0.5,
+          }}
+        >
+          <CommentIcon sx={{ color: "white" }} />
+        </IconButton>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "white",
+            display: "block",
+            textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+          }}
+        >
+          231
+        </Typography>
+      </Box>
+
+      {/* Share Button */}
+      <Box sx={{ textAlign: "center" }}>
+        <IconButton
+          sx={{
+            bgcolor: "rgba(255,255,255,0.1)",
+            "&:hover": {
+              bgcolor: "rgba(255,255,255,0.2)",
+              transform: "scale(1.1)",
+            },
+            transition: "transform 0.2s",
+            mb: 0.5,
+          }}
+        >
+          <ShareIcon sx={{ color: "white" }} />
+        </IconButton>
+        <Typography
+          variant="caption"
+          sx={{
+            color: "white",
+            display: "block",
+            textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+          }}
+        >
+          Share
+        </Typography>
+      </Box>
+
+      {/* More Options Button */}
+      <IconButton
+        sx={{
+          bgcolor: "rgba(255,255,255,0.1)",
+          "&:hover": {
+            bgcolor: "rgba(255,255,255,0.2)",
+            transform: "scale(1.1)",
+          },
+          transition: "transform 0.2s",
+        }}
+      >
+        <MoreHorizIcon sx={{ color: "white" }} />
+      </IconButton>
+    </Box>
+  );
+
   return (
-    <Container
-      maxWidth={false}
+    <Box
       sx={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-start", // Align items to the top
-        height: "100vh",
-        paddingLeft: { xs: 0, sm: "250px" },
-        backgroundColor: "#fafafa",
+        alignItems: "flex-start",
+        minHeight: "100vh",
+        pl: { xs: 0, sm: 8 },
+        bgcolor: "#fafafa",
         overflowY: "auto",
       }}
     >
@@ -177,9 +331,9 @@ const ReelSection = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center", // Center the cards horizontally
+          alignItems: "center",
           width: { xs: "90%", sm: "400px" },
-          padding: "20px",
+          p: 2.5,
         }}
       >
         {videosData.map((video, index) => (
@@ -189,13 +343,13 @@ const ReelSection = () => {
             data-index={index}
             sx={{
               position: "relative",
+              marginTop: "10px",
               height: "90vh",
-              scrollSnapAlign: "start",
-
               width: "100%",
               maxWidth: "md",
-              overflowY: "auto",
+              scrollSnapAlign: "start",
               scrollSnapType: "y mandatory",
+              overflowY: "auto",
             }}
           >
             <video
@@ -219,12 +373,19 @@ const ReelSection = () => {
               }}
             />
 
+            {/* Action Bar */}
+            {renderActionBar(video)}
+
+            {/* Info Card */}
             <Card
               sx={{
                 position: "absolute",
-                bottom: 24,
-                left: 16,
-                maxWidth: "80%",
+                bottom: 3,
+                left: 2,
+                maxWidth: {
+                  xs: "calc(100% - 100px)",
+                  md: "calc(100% - 140px)",
+                },
                 bgcolor: "rgba(0,0,0,0.7)",
                 color: "white",
                 backdropFilter: "blur(8px)",
@@ -258,43 +419,12 @@ const ReelSection = () => {
               </CardContent>
             </Card>
 
+            {/* Media Controls */}
             <Box
               sx={{
                 position: "absolute",
-                right: 16,
-                top: "50%",
-                transform: "translateY(-50%)",
-                display: "flex",
-                flexDirection: "column",
-                gap: 1,
-                zIndex: 2,
-              }}
-            >
-              <IconButton
-                onClick={() => navigateVideo("prev")}
-                sx={{
-                  bgcolor: "rgba(255,255,255,0.1)",
-                  "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
-                }}
-              >
-                <KeyboardArrowUp sx={{ color: "white" }} />
-              </IconButton>
-              <IconButton
-                onClick={() => navigateVideo("next")}
-                sx={{
-                  bgcolor: "rgba(255,255,255,0.1)",
-                  "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
-                }}
-              >
-                <KeyboardArrowDown sx={{ color: "white" }} />
-              </IconButton>
-            </Box>
-
-            <Box
-              sx={{
-                position: "absolute",
-                bottom: 16,
-                right: 16,
+                bottom: 2,
+                right: 2,
                 display: "flex",
                 gap: 1,
                 zIndex: 2,
@@ -326,7 +456,7 @@ const ReelSection = () => {
           </Box>
         ))}
       </Box>
-    </Container>
+    </Box>
   );
 };
 
