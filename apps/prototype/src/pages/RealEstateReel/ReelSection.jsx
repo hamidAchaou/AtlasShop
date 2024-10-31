@@ -450,9 +450,7 @@ const ReelSection = () => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-start",
         minHeight: "100vh",
-        pl: { xs: 0, sm: 8 },
         bgcolor: "#fafafa",
         overflowY: "auto",
       }}
@@ -461,7 +459,6 @@ const ReelSection = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
           width: { xs: "90%", sm: "400px" },
           p: 2.5,
         }}
@@ -473,13 +470,12 @@ const ReelSection = () => {
             data-index={index}
             sx={{
               position: "relative",
-              marginTop: "10px",
               height: "90vh",
               width: "100%",
               maxWidth: "md",
               scrollSnapAlign: "start",
-              scrollSnapType: "y mandatory",
-              overflowY: "auto",
+              overflow: "hidden",
+              mb: 2,
             }}
           >
             <video
@@ -576,6 +572,7 @@ const ReelSection = () => {
                   "&:hover": { bgcolor: "rgba(255,255,255,0.2)" },
                 }}
               >
+                J
                 {isMuted ? (
                   <VolumeOff sx={{ color: "white" }} />
                 ) : (

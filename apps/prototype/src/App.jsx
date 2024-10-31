@@ -9,6 +9,7 @@ import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Profile from "./pages/Profile";
 import RealEstateReel from "./pages/RealEstateReel/RealEstateReel";
+import AutoParts from "./pages/AutoParts/AutoParts";
 
 const App = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/real-estate" element={<RealEstateReel />} />
+              <Route path="/auto-parts" element={<AutoParts />} />
             </Routes>
           </Box>
         </Box>
