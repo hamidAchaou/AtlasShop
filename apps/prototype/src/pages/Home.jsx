@@ -1,17 +1,38 @@
 // src/pages/Home.jsx
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
+import ProductReels from "../components/ProductReels";
+import ReelSection from "../components/ReelSection";
+import ContactForm from "../components/ContactForm";
+import AboutSection from "../components/AboutSection";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <Box sx={{ padding: 2 }}>
-      <Typography variant="h1" component="h1">
-        Home Page
-      </Typography>
-      <Typography variant="body1">
-        Welcome to the home page! Here you can find various information.
-      </Typography>
-    </Box>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      {/* Reel Section for Main Content (Instagram-like Video Reels) */}
+      <ReelSection title="Real Estate Reels" />
+      <ReelSection title="Auto Parts Reels" />
+
+      {/* Product Reels Section */}
+      <Box sx={{ my: 4 }}>
+        <ProductReels category="Real Estate" />
+        <ProductReels category="Auto Parts" />
+      </Box>
+
+      {/* About Section */}
+      <Box sx={{ my: 4 }}>
+        <AboutSection />
+      </Box>
+
+      {/* Contact Form Section */}
+      <Box sx={{ my: 4 }}>
+        <ContactForm />
+      </Box>
+
+      {/* Footer */}
+      <Footer />
+    </Container>
   );
 };
 

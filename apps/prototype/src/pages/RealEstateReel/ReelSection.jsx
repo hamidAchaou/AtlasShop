@@ -252,6 +252,19 @@ const ReelSection = () => {
     });
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleVideoIntersection, {
+      threshold: 0.5,
+    });
+
+    // observe videos as they load
+    Object.values(videoRefs.current).forEach((videoEl) => {
+      if (videoEl) observer.observe(videoEl.parentElement);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const toggleMute = () => {
     setIsMuted((prev) => !prev);
     Object.values(videoRefs.current).forEach((videoEl) => {
